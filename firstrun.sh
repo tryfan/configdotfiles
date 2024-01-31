@@ -14,11 +14,13 @@ if [ "$DNF_PKG" == "0" ]; then
 elif [ "$APT_PKG" == "0" ]; then
 	sudo apt-get update
 	sudo apt-get install build-essential ripgrep git tmux fd-find
-	LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
-	curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
-	tar xf lazygit.tar.gz lazygit
-	sudo install lazygit /usr/local/bin
-	rm -f lazygit*
+	if [ ! -f "/usr/local/bin/lazygit" ]; then
+		LAZYGIT_VERSION=$(curl -s "https://api.github.com/repos/jesseduffield/lazygit/releases/latest" | grep -Po '"tag_name": "v\K[^"]*')
+		curl -Lo lazygit.tar.gz "https://github.com/jesseduffield/lazygit/releases/latest/download/lazygit_${LAZYGIT_VERSION}_Linux_x86_64.tar.gz"
+		tar xf lazygit.tar.gz lazygit
+		sudo install lazygit /usr/local/bin
+		rm -f lazygit*
+	fi
 fi
 
 if [ -e "$HOME/.config/nvim/lazyvim.json" ]; then
