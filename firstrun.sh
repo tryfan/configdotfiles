@@ -28,7 +28,7 @@ else
 	rm -rf ~/.config/nvim/.git
 fi
 
-cp -R nvim/.config/nvim/ ~/.config/nvim
+cp -R nvim/.config/nvim/lua/plugins/* ~/.config/nvim/lua/plugins/
 cp -R tmux/.config/tmux ~/.config/tmux
 
 echo "Run nvim :LazyHealth"
